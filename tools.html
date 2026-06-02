@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>AI Tool Categories | Glassmorphism Showcase</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+	
+
+		body::before {
+			content: "";
+			position: fixed;
+			inset: 0;
+			pointer-events: none;
+			background-image:
+				linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+				linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+			background-size: 56px 56px;
+			mask-image: radial-gradient(circle at center, black 38%, transparent 95%);
+			opacity: 0.35;
+		}
+
+		 .orb {
+			position: fixed;
+			border-radius: 999px;
+			filter: blur(10px);
+			opacity: 0.65;
+			z-index: 0;
+			pointer-events: none;
+			animation: float 14s ease-in-out infinite;
+		}
+
+		.orb.one { width: 260px; height: 260px; left: -80px; top: 140px; background: radial-gradient(circle, rgba(139, 232, 255, 0.42), rgba(139, 232, 255, 0)); }
+		.orb.two { width: 320px; height: 320px; right: -110px; top: 40px; background: radial-gradient(circle, rgba(185, 167, 255, 0.38), rgba(185, 167, 255, 0)); animation-delay: -4s; }
+		.orb.three { width: 220px; height: 220px; right: 10%; bottom: -100px; background: radial-gradient(circle, rgba(124, 242, 197, 0.24), rgba(124, 242, 197, 0)); animation-delay: -8s; } 
+
+		@keyframes float { 0%, 100% { transform: translate3d(0, 0, 0) scale(1); } 50% { transform: translate3d(0, -18px, 0) scale(1.03); } }
+
+		.shell {
+			position: relative;
+			z-index: 1;
+			width: min(calc(100% - 32px), var(--max));
+			margin: 0 auto;
+			padding: 28px 0 48px;
+		}
+
+		.hero {
+			display: grid;
+			gap: 24px;
+			grid-template-columns: 1.15fr 0.85fr;
+			align-items: stretch;
+			margin-top: 8px;
+		}
+
+		.panel {
+			background: linear-gradient(180deg, var(--glass-strong), var(--glass));
+			border: 1px solid var(--border);
+			box-shadow: var(--shadow);
+			backdrop-filter: blur(24px) saturate(160%);
+			-webkit-backdrop-filter: blur(24px) saturate(160%);
+			border-radius: var(--radius-xl);
+		}
+
+		.hero-main { padding: 28px; position: relative; overflow: hidden; }
+		.hero-main::after {
+			content: "";
+			position: absolute;
+			inset: auto -10% -25% auto;
+			width: 340px; height: 340px;
+			border-radius: 50%;
+			background: radial-gradient(circle, rgba(139, 232, 255, 0.14), transparent 66%);
+			pointer-events: none;
+		}
+
+		.eyebrow {
+			display: inline-flex; align-items: center; gap: 10px;
+			padding: 10px 14px; border-radius: 999px;
+			background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.12);
+			color: var(--muted); font-size: 0.88rem; letter-spacing: 0.04em; text-transform: uppercase; width: fit-content;
+		}
+		.eyebrow span {
+			width: 8px; height: 8px; border-radius: 50%;
+			background: linear-gradient(135deg, var(--accent), var(--accent-3));
+			box-shadow: 0 0 0 6px rgba(139, 232, 255, 0.12);
+		}
+
+		h1 {
+			margin: 18px 0 12px;
+			font-family: "Space Grotesk", system-ui, sans-serif;
+			font-size: clamp(2.4rem, 5vw, 5rem);
+			line-height: 0.96;
+			letter-spacing: -0.04em;
+			max-width: 10ch;
+		}
+
+		.hero-copy {
+			margin: 0;
+			max-width: 62ch;
+			color: var(--muted);
+			font-size: 1.02rem;
+			line-height: 1.75;
+		}
+
+		.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
+		.button {
+			appearance: none; border: 0; border-radius: 999px; padding: 12px 18px;
+			font: inherit; font-weight: 700; color: var(--text); cursor: pointer; text-decoration: none;
+			display: inline-flex; align-items: center; gap: 10px;
+			transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+		}
+		.button.primary { background: linear-gradient(135deg, rgba(139, 232, 255, 0.24), rgba(185, 167, 255, 0.22)); border: 1px solid rgba(255, 255, 255, 0.18); }
+		.button.secondary { background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.12); }
+		.button:hover { transform: translateY(-2px); }
+
+		.hero-side { padding: 24px; display: grid; gap: 16px; align-content: start; }
+		.stat-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+		.stat { padding: 18px; border-radius: var(--radius-lg); background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.12); }
+		.stat strong { display: block; font-family: "Space Grotesk", system-ui, sans-serif; font-size: 1.75rem; line-height: 1; margin-bottom: 8px; }
+		.stat span, .section-intro p, .tool-meta, .footer-note { color: var(--muted); }
+
+		.control-bar {
+			margin-top: 24px; padding: 18px;
+			display: grid; gap: 14px; grid-template-columns: 1fr auto; align-items: center;
+		}
+		.search-wrap { position: relative; }
+		.search-wrap input {
+			width: 100%; padding: 16px 18px 16px 52px; border-radius: 18px;
+			border: 1px solid rgba(255, 255, 255, 0.12); background: rgba(8, 17, 31, 0.34);
+			color: var(--text); outline: none; font: inherit;
+		}
+		.search-wrap input::placeholder { color: rgba(244, 248, 255, 0.48); }
+		.search-wrap svg { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); opacity: 0.7; }
+		.chips { display: flex; flex-wrap: wrap; gap: 10px; justify-content: flex-end; }
+		.chip {
+			border: 1px solid rgba(255, 255, 255, 0.12); background: rgba(255, 255, 255, 0.06);
+			color: var(--text); border-radius: 999px; padding: 11px 14px; font-weight: 700; cursor: pointer; transition: all 180ms ease;
+		}
+		.chip.active { background: linear-gradient(135deg, rgba(139, 232, 255, 0.22), rgba(185, 167, 255, 0.22)); border-color: rgba(255, 255, 255, 0.2); }
+		.chip:hover { transform: translateY(-1px); }
+
+		.s { display: grid; gap: 22px; margin-top: 24px; }
+		.section { padding: 24px; }
+		.section-header { display: grid; gap: 14px; grid-template-columns: 1fr auto; align-items: end; margin-bottom: 18px; }
+		.section-intro h2 { margin: 0 0 8px; font-family: "Space Grotesk", system-ui, sans-serif; font-size: clamp(1.6rem, 2.4vw, 2.25rem); letter-spacing: -0.03em; }
+		.section-intro p { margin: 0; max-width: 62ch; line-height: 1.7; }
+		.section-badge {
+			justify-self: start; display: inline-flex; align-items: center; gap: 8px;
+			padding: 10px 14px; border-radius: 999px; background: rgba(255, 255, 255, 0.08);
+			border: 1px solid rgba(255, 255, 255, 0.12); color: var(--muted); font-weight: 700; white-space: nowrap;
+		}
+		.cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+		.tool-card {
+			display: grid; gap: 12px; padding: 18px; border-radius: var(--radius-lg);
+			background: linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.06));
+			border: 1px solid rgba(255, 255, 255, 0.14); text-decoration: none; color: inherit; min-height: 162px;
+			transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+		}
+		.tool-card:hover { transform: translateY(-3px); border-color: rgba(255, 255, 255, 0.24); background: linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.07)); }
+		.tool-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+		.tool-name { margin: 0; font-family: "Space Grotesk", system-ui, sans-serif; font-size: 1.18rem; letter-spacing: -0.02em; }
+		.pill {
+			display: inline-flex; align-items: center; justify-content: center; padding: 7px 10px; border-radius: 999px;
+			background: rgba(139, 232, 255, 0.14); border: 1px solid rgba(139, 232, 255, 0.18); color: #d6f8ff;
+			font-size: 0.76rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap;
+		}
+		.tool-link { display: inline-flex; align-items: center; gap: 8px; color: #dbf4ff; font-weight: 800; text-decoration: none; width: fit-content; margin-top: auto; }
+		.tool-link svg, .button svg { width: 16px; height: 16px; flex: none; }
+		.tool-card .tool-meta { font-size: 0.95rem; line-height: 1.65; margin: 0; }
+		.footer { margin: 24px 0 8px; padding: 18px 22px; text-align: center; }
+		.footer-note { margin: 0; line-height: 1.65; }
+		.hidden { display: none !important; }
+
+		@media (max-width: 1024px) {
+			.hero, .control-bar, .section-header { grid-template-columns: 1fr; }
+			.chips { justify-content: flex-start; }
+		}
+		@media (max-width: 760px) {
+			.shell { width: min(calc(100% - 20px), var(--max)); padding-top: 16px; }
+			.hero-main, .hero-side, .section, .footer { padding-left: 18px; padding-right: 18px; }
+			.cards, .stat-grid { grid-template-columns: 1fr; }
+			.control-bar { padding: 16px; }
+			.tool-card { min-height: auto; }
+		}
+	</style>
+</head>
+<body>
+	<div class="orb one"></div>
+	<div class="orb two"></div>
+	<div class="orb three"></div>
+
+	<main class="shell">
+	
+
+		<section class="panel control-bar" aria-label="Filters">
+			<div class="search-wrap">
+				<!-- <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m21 21-4.35-4.35m1.35-5.65a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> -->
+				<input id="searchInput" type="search" placeholder="Search tools, categories, or use cases..." aria-label="Search tools" />
+			</div>
+			<div class="chips" id="chips">
+				<button class="chip active" type="button" data-filter="all">All</button>
+				<button class="chip" type="button" data-filter="layout">Layout</button>
+				<button class="chip" type="button" data-filter="design">Design</button>
+				<button class="chip" type="button" data-filter="video">Video</button>
+				<button class="chip" type="button" data-filter="productivity">Productivity</button>
+				<button class="chip" type="button" data-filter="marketing">Marketing</button>
+				<button class="chip" type="button" data-filter="sales">Sales</button>
+			</div>
+		</section>
+
+		<div class="s" id="s"></div>
+		<footer class="panel footer"><p class="footer-note">Built as a glassmorphism showcase with category filtering, clear  separation, and direct links to every tool.</p></footer>
+	</main>
+
+	<script>
+		const categories = [
+			{
+				id: 'layout',
+				title: ' 1. Layout, CSS, JavaScript, and Coding Tools',
+				badge: 'Foundational build stack',
+				description: 'Tools for building interfaces, generating code, and speeding up engineering workflows.',
+				items: [
+					['Windsurf', 'https://windsurf.com/?utm_source=chatgpt.com', 'AI coding environment for fast iteration.'],
+					['Blackbox AI', 'https://www.blackbox.ai/?utm_source=chatgpt.com', 'Code search and generation support.'],
+					['GitHub Copilot', 'https://github.com/features/copilot?utm_source=chatgpt.com', 'AI pair programming and inline completion.'],
+					['Bolt.new', 'https://bolt.new/?utm_source=chatgpt.com', 'Browser-first app prototyping and builds.'],
+					['ChatGPT', 'https://chatgpt.com/?utm_source=chatgpt.com', 'General assistant for ideation and problem solving.'],
+					['Claude', 'https://claude.ai/?utm_source=chatgpt.com', 'Structured reasoning and code support.'],
+					['Cursor', 'https://cursor.com/?utm_source=chatgpt.com', 'AI code editor for refactoring and generation.'],
+					['Grok', 'https://grok.com/?utm_source=chatgpt.com', 'Fast iteration and synthesis assistant.'],
+					['Devin AI', 'https://devin.ai/?utm_source=chatgpt.com', 'Autonomous software workflow support.']
+				]
+			},
+			{
+				id: 'design',
+				title: ' 2. Design Tools',
+				badge: 'Creative production',
+				description: 'Visual ideation, image generation, and brand-focused design platforms.',
+				items: [
+					['Canva', 'https://www.canva.com/?utm_source=chatgpt.com', 'Fast visual creation for decks and social assets.'],
+					['Microsoft Designer', 'https://designer.microsoft.com/?utm_source=chatgpt.com', 'AI-assisted marketing visuals and content.'],
+					['Adobe Firefly', 'https://firefly.adobe.com/?utm_source=chatgpt.com', 'Generative image and content workflows.'],
+					['Simplified', 'https://simplified.com/?utm_source=chatgpt.com', 'All-in-one design suite for content teams.'],
+					['Midjourney', 'https://www.midjourney.com/?utm_source=chatgpt.com', 'High-style image generation for concepts.'],
+					['Leonardo AI', 'https://leonardo.ai/?utm_source=chatgpt.com', 'Flexible generative image platform.'],
+					['Ideogram', 'https://ideogram.ai/?utm_source=chatgpt.com', 'Text-aware graphics and creative exploration.'],
+					['Uizard', 'https://uizard.io/?utm_source=chatgpt.com', 'Wireframing and interface prototyping.'],
+					['Playground AI', 'https://playground.com/?utm_source=chatgpt.com', 'Image generation and editing.']
+				]
+			},
+			{
+				id: 'video',
+				title: ' 3. Video Tools',
+				badge: 'Motion production',
+				description: 'Creation, editing, repurposing, and AI-assisted video production tools.',
+				items: [
+					['VidIQ', 'https://vidiq.com/?utm_source=chatgpt.com', 'YouTube optimization and discovery insights.'],
+					['Descript', 'https://www.descript.com/?utm_source=chatgpt.com', 'Text-based video and audio editing.'],
+					['InVideo', 'https://invideo.io/?utm_source=chatgpt.com', 'Video templates and branded output.'],
+					['Rovid AI', 'https://rovid.ai/?utm_source=chatgpt.com', 'AI video workflows for production support.'],
+					['HeyGen', 'https://www.heygen.com/?utm_source=chatgpt.com', 'AI avatar and talking-head generation.'],
+					['Pictory', 'https://pictory.ai/?utm_source=chatgpt.com', 'Turn long-form content into short clips.'],
+					['Kling AI', 'https://klingai.com/?utm_source=chatgpt.com', 'Cinematic AI video generation.'],
+					['Pollo AI', 'https://pollo.ai/?utm_source=chatgpt.com', 'Creative AI video experimentation.'],
+					['Runway', 'https://runwayml.com/?utm_source=chatgpt.com', 'Advanced generative video toolkit.'],
+					['VEED.IO', 'https://www.veed.io/?utm_source=chatgpt.com', 'Browser video editing for captions and clips.']
+				]
+			},
+			{
+				id: 'productivity',
+				title: ' 4. Productivity Tools',
+				badge: 'Work management',
+				description: 'Planning, notes, collaboration, and operational tools for daily work.',
+				items: [
+					['Monday.com', 'https://monday.com/?utm_source=chatgpt.com', 'Project and team management.'],
+					['ClickUp', 'https://clickup.com/?utm_source=chatgpt.com', 'Tasks, docs, goals, and collaboration.'],
+					['Notion', 'https://www.notion.so/?utm_source=chatgpt.com', 'Knowledge base, wiki, and planning.'],
+					['Otter AI', 'https://otter.ai/?utm_source=chatgpt.com', 'Meeting transcription and note capture.'],
+					['NotebookLM', 'https://notebooklm.google.com/?utm_source=chatgpt.com', 'Source-grounded research and notes.']
+				]
+			},
+			{
+				id: 'marketing',
+				title: ' 5. Marketing Tools',
+				badge: 'Growth engine',
+				description: 'SEO, content creation, newsletters, and audience growth platforms.',
+				items: [
+					['Ahrefs', 'https://ahrefs.com/?utm_source=chatgpt.com', 'SEO research and backlink analysis.'],
+					['Taplio', 'https://taplio.com/?utm_source=chatgpt.com', 'LinkedIn content and growth workflows.'],
+					['Beehiiv', 'https://www.beehiiv.com/?utm_source=chatgpt.com', 'Newsletter publishing and monetization.'],
+					['SEO Bot', 'https://seobotai.com/?utm_source=chatgpt.com', 'Automated SEO support.'],
+					['Tweet Hunter', 'https://tweethunter.io/?utm_source=chatgpt.com', 'X content and growth workflows.'],
+					['Writesonic', 'https://writesonic.com/?utm_source=chatgpt.com', 'Marketing pages, blogs, and campaign copy.'],
+					['Podnotes', 'https://podnotes.app/?utm_source=chatgpt.com', 'Podcast notes and promotional content.'],
+					['Jasper', 'https://www.jasper.ai/?utm_source=chatgpt.com', 'Brand copy generation platform.'],
+					['Copy.ai', 'https://www.copy.ai/?utm_source=chatgpt.com', 'Sales and marketing content generation.']
+				]
+			},
+			{
+				id: 'sales',
+				title: ' 6. Sales Tools',
+				badge: 'Revenue stack',
+				description: 'Prospecting, outreach, pipeline, and revenue acceleration tools.',
+				items: [
+					['HubSpot Sales Hub', 'https://www.hubspot.com/products/sales?utm_source=chatgpt.com', 'Sales CRM and pipeline management.'],
+					['Clay', 'https://www.clay.com/?utm_source=chatgpt.com', 'Enrichment, research, and outbound automation.'],
+					['Instantly', 'https://instantly.ai/?utm_source=chatgpt.com', 'Cold email infrastructure and campaign management.'],
+					['Gong', 'https://www.gong.io/?utm_source=chatgpt.com', 'Conversation intelligence and deal insights.'],
+					['Seamless.AI', 'https://www.seamless.ai/?utm_source=chatgpt.com', 'Lead discovery and contact enrichment.'],
+					['Dripify', 'https://dripify.io/?utm_source=chatgpt.com', 'Automated LinkedIn outreach workflows.']
+				]
+			}
+		];
+
+		const s = document.getElementById('s');
+		const searchInput = document.getElementById('searchInput');
+		const chips = [...document.querySelectorAll('.chip')];
+let activeFilter = 'all';
+function sectionMarkup(category) {
+			const cards = category.items.map(([name, url, description]) => `
+				<a class="tool-card" href="${url}" target="_blank" rel="noreferrer" data-name="${name.toLowerCase()}" data-text="${(name + ' ' + description + ' ' + category.title).toLowerCase()}">
+					<div class="tool-head"><h3 class="tool-name">${name}</h3><span class="pill">Tool</span></div>
+					<p class="tool-meta">${description}</p>
+					<span class="tool-link">Open website <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17 17 7m0 0H9m8 0v8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+				</a>`).join('');
+
+			return `
+				<section class="panel section" data-section="${category.id}">
+					<div class="section-header">
+						<div class="section-intro">
+							<h2>${category.title}</h2>
+							<p>${category.description}</p>
+						</div>
+						<div class="section-badge">${category.badge}</div>
+					</div>
+					<div class="cards">${cards}</div>
+				</section>`;
+		}
+
+		s.innerHTML = categories.map(sectionMarkup).join('');
+
+		function applyFilters() {
+			const query = searchInput.value.trim().toLowerCase();
+			document.querySelectorAll('[data-section]').forEach((section) => {
+				const sectionVisible = activeFilter === 'all' || section.dataset.section === activeFilter;
+				let visibleCount = 0;
+				section.querySelectorAll('.tool-card').forEach((card) => {
+					const haystack = card.dataset.text || '';
+					const visible = sectionVisible && (!query || haystack.includes(query));
+					card.classList.toggle('hidden', !visible);
+					if (visible) visibleCount += 1;
+				});
+				section.classList.toggle('hidden', visibleCount === 0);
+			});
+		}
+
+		chips.forEach((chip) => {
+			chip.addEventListener('click', () => {
+				activeFilter = chip.dataset.filter;
+				chips.forEach((item) => item.classList.toggle('active', item === chip));
+				applyFilters();
+			});
+		});
+
+		searchInput.addEventListener('input', applyFilters);
+		
+applyFilters();
+	</script>
+</body>
+</html>
