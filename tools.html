@@ -388,17 +388,4 @@ function sectionMarkup(category) {
 			});
 		}
 
-		chips.forEach((chip) => {
-			chip.addEventListener('click', () => {
-				activeFilter = chip.dataset.filter;
-				chips.forEach((item) => item.classList.toggle('active', item === chip));
-				applyFilters();
-			});
-		});
-
-		searchInput.addEventListener('input', applyFilters);
 		
-applyFilters();
-	</script>
-</body>
-</html>
