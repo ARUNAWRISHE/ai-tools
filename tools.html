@@ -7,8 +7,11 @@
 	<title>AI Tool Categories | Glassmorphism Showcase</title>
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-	<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
-	<style>
+	<link rel="preload"
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
+      as="style"
+      onload="this.rel='stylesheet'">	
+	  <style>
 		:root {
 			--bg-1: #020408;
 			--bg-2: #050912;
@@ -50,7 +53,7 @@
 			overflow-x: hidden;
 		}
 
-		body::before {
+		/* body::before {
 			content: "";
 			position: fixed;
 			inset: 0;
@@ -61,7 +64,7 @@
 			background-size: 56px 56px;
 			mask-image: radial-gradient(circle at center, black 38%, transparent 95%);
 			opacity: 0.35;
-		}
+		} */
 
 		 .orb {
 			position: fixed;
@@ -99,7 +102,9 @@
 			background: linear-gradient(180deg, var(--glass-strong), var(--glass));
 			border: 1px solid var(--border);
 			box-shadow: var(--shadow);
-			backdrop-filter: blur(8px) saturate(120%);
+			
+    		background: rgba(20,25,35,.85);
+
 			-webkit-backdrop-filter: blur(8px) saturate(120%);
 			border-radius: var(--radius-xl);
 		}
