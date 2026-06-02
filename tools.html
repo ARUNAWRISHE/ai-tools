@@ -1,92 +1,4 @@
 
-
-
-
-Pasted code.html
-File
-
-fix and remo that and make this =dark color
-
-I've fixed the main JavaScript errors and made the theme darker:
-
-Fixed
-Removed the broken resetFilters reference (element doesn't exist).
-
-Removed the broken toolTotal reference (element doesn't exist).
-
-Removed the associated event listener and counter code that would cause console errors.
-
-Dark Theme Changes
---bg-1: #020408
-
---bg-2: #050912
-
---bg-3: #0b1422
-
-Download the fixed file
-Download the updated HTML
-
-Source file reviewed: 
-
-
-If you want, I can also:
-
-Convert it to a pure black modern AI-directory theme
-
-Add light/dark toggle
-
-Add tool logos/icons
-
-Add category sidebar navigation
-
-Add 100+ AI tools with search and filtering
-
-Make it look like a premium SaaS directory (similar to Product Hunt or Futurepedia) 
-
-
-
-
-
-Pasted code(1).html
-File
-
-
-inreae the loading speed and smoothness
-
-I've created an optimized version focused on smoother scrolling and faster rendering.
-
-Optimizations Applied
-✅ Reduced heavy glassmorphism blur (24px → 8px)
-✅ Reduced orb blur (10px → 4px)
-✅ Added GPU acceleration (translateZ(0) + will-change)
-✅ Optimized floating animations
-✅ Added debounced search filtering (120ms) to reduce lag while typing
-✅ Reduced rendering workload for low-end devices
-
-Download
-AI_Tools_Optimized_Fast.html
-
-Based on the uploaded file 
-
-
-For maximum speed (2-5x faster), I can also:
-
-Remove glassmorphism completely
-
-Replace CSS blur effects with gradients
-
-Use virtualized rendering for tool cards
-
-Lazy-load categories
-
-Add search indexing with Map()
-
-Use CSS containment (content-visibility: auto)
-
-Convert animations to GPU-only transforms
-
-That version will feel almost instant even with 500+ AI tools. 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -243,18 +155,27 @@ That version will feel almost instant even with 500+ AI tools.
 		.stat span, .section-intro p, .tool-meta, .footer-note { color: var(--muted); }
 
 		.control-bar {
-			margin-top: 24px; padding: 18px;
-			display: grid; gap: 14px; grid-template-columns: 1fr auto; align-items: center;
+			margin-top: 24px;
+			padding: 18px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
 		}
-		.search-wrap { position: relative; }
+		/* .search-wrap { position: relative; }
 		.search-wrap input {
 			width: 100%; padding: 16px 18px 16px 52px; border-radius: 18px;
 			border: 1px solid rgba(255, 255, 255, 0.12); background: rgba(8, 17, 31, 0.34);
 			color: var(--text); outline: none; font: inherit;
 		}
 		.search-wrap input::placeholder { color: rgba(244, 248, 255, 0.48); }
-		.search-wrap svg { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); opacity: 0.7; }
-		.chips { display: flex; flex-wrap: wrap; gap: 10px; justify-content: flex-end; }
+		.search-wrap svg { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); opacity: 0.7; } */
+		.chips {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 12px;
+			justify-content: center;
+			width: 100%;
+		}
 		.chip {
 			border: 1px solid rgba(255, 255, 255, 0.12); background: rgba(255, 255, 255, 0.06);
 			color: var(--text); border-radius: 999px; padding: 11px 14px; font-weight: 700; cursor: pointer; transition: all 180ms ease;
@@ -306,7 +227,17 @@ That version will feel almost instant even with 500+ AI tools.
 			.tool-card { min-height: auto; }
 		}
 	
-.tool-card,.panel,.chip{will-change:transform;transform:translateZ(0);}
+		.tool-card,.panel,.chip{will-change:transform;transform:translateZ(0);}
+		.section{
+			content-visibility:auto;
+			contain-intrinsic-size:500px;
+		}
+
+		@media(max-width:768px){
+			.orb{
+				display:none;
+			}
+}
 </style>
 </head>
 <body>
@@ -318,10 +249,7 @@ That version will feel almost instant even with 500+ AI tools.
 	
 
 		<section class="panel control-bar" aria-label="Filters">
-			<div class="search-wrap">
-				<!-- <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m21 21-4.35-4.35m1.35-5.65a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> -->
-				<input id="searchInput" type="search" placeholder="Search tools, categories, or use cases..." aria-label="Search tools" />
-			</div>
+			
 			<div class="chips" id="chips">
 				<button class="chip active" type="button" data-filter="all">All</button>
 				<button class="chip" type="button" data-filter="layout">Layout</button>
@@ -330,6 +258,12 @@ That version will feel almost instant even with 500+ AI tools.
 				<button class="chip" type="button" data-filter="productivity">Productivity</button>
 				<button class="chip" type="button" data-filter="marketing">Marketing</button>
 				<button class="chip" type="button" data-filter="sales">Sales</button>
+
+				<button class="chip" type="button" data-filter="ai-builder">AI Builder</button>
+				<button class="chip" type="button" data-filter="3d-design">3D Design</button>
+				<button class="chip" type="button" data-filter="3d-frameworks">3D Frameworks</button>
+				<button class="chip" type="button" data-filter="creative-web">Creative Web</button>
+				<button class="chip" type="button" data-filter="frontend-utils">Frontend Utils</button>
 			</div>
 		</section>
 
@@ -435,10 +369,62 @@ That version will feel almost instant even with 500+ AI tools.
 					['Dripify', 'https://dripify.io/?utm_source=chatgpt.com', 'Automated LinkedIn outreach workflows.']
 				]
 			}
+			,
+			{
+				id: 'ai-builder',
+				title: '7. AI App Builders & Full-Stack Development',
+				badge: 'Build with AI',
+				description: 'Build complete applications, websites and MVPs using AI.',
+				items: [
+					['Orchids', 'https://www.orchids.app/', 'AI full-stack engineer for websites, apps, databases, authentication and deployment-ready projects.'],
+					['Bolt.new', 'https://bolt.new/', 'Generate full-stack applications from prompts.'],
+					['Lovable', 'https://lovable.dev/', 'Create web applications using natural language.'],
+					['Replit', 'https://replit.com/', 'Cloud development platform with AI coding assistance.'],
+					['v0', 'https://v0.dev/', 'AI-powered UI generation platform by Vercel.']
+				]
+			},
+			{
+				id: '3d-design',
+				title: '8. 3D Design & Interactive Experiences',
+				badge: 'Creative 3D',
+				description: 'Interactive 3D websites, product showcases and immersive experiences.',
+				items: [
+					['Spline', 'https://spline.design/', 'Create interactive 2D and 3D experiences directly in the browser.']
+				]
+			},
+			{
+				id: '3d-frameworks',
+				title: '9. 3D Web Development Frameworks',
+				badge: 'Developer Tools',
+				description: 'Libraries and frameworks for building advanced 3D web applications.',
+				items: [
+					['Three.js', 'https://threejs.org/', 'JavaScript library for creating 3D websites, games and visualizations.'],
+					['Theatre.js', 'https://www.theatrejs.com/', 'Timeline animation system for Three.js projects and storytelling experiences.'],
+					['Threlte', 'https://threlte.xyz/', 'Svelte framework built on top of Three.js for high-performance 3D applications.']
+				]
+			},
+			{
+				id: 'creative-web',
+				title: '10. Creative Website Builders',
+				badge: 'Modern Web',
+				description: 'Visual website builders and creative web development platforms.',
+				items: [
+					['PeachWeb', 'https://peachweb.io/', 'Build modern landing pages and creative web experiences visually.']
+				]
+			},
+			{
+				id: 'frontend-utils',
+				title: '11. Frontend Utilities & Effects',
+				badge: 'Developer Utilities',
+				description: 'Frontend generators, CSS tools, SVG utilities and design resources.',
+				items: [
+					['Omatsuri', 'https://omatsuri.app/', 'Collection of CSS generators, SVG tools, glassmorphism generators, color tools and animations.']
+				]
+			}
 		];
 
 		const s = document.getElementById('s');
-		const searchInput = document.getElementById('searchInput');
+		
 		const chips = [...document.querySelectorAll('.chip')];
 let activeFilter = 'all';
 function sectionMarkup(category) {
@@ -465,19 +451,14 @@ function sectionMarkup(category) {
 		s.innerHTML = categories.map(sectionMarkup).join('');
 
 		function applyFilters() {
-			const query = searchInput.value.trim().toLowerCase();
-			document.querySelectorAll('[data-section]').forEach((section) => {
-				const sectionVisible = activeFilter === 'all' || section.dataset.section === activeFilter;
-				let visibleCount = 0;
-				section.querySelectorAll('.tool-card').forEach((card) => {
-					const haystack = card.dataset.text || '';
-					const visible = sectionVisible && (!query || haystack.includes(query));
-					card.classList.toggle('hidden', !visible);
-					if (visible) visibleCount += 1;
-				});
-				section.classList.toggle('hidden', visibleCount === 0);
-			});
-		}
+    document.querySelectorAll('[data-section]').forEach((section) => {
+        const visible =
+            activeFilter === 'all' ||
+            section.dataset.section === activeFilter;
+
+        section.classList.toggle('hidden', !visible);
+    });
+}
 
 		chips.forEach((chip) => {
 			chip.addEventListener('click', () => {
@@ -486,12 +467,6 @@ function sectionMarkup(category) {
 				applyFilters();
 			});
 		});
-
-		let debounceTimer;
-searchInput.addEventListener('input',()=>{
-clearTimeout(debounceTimer);
-debounceTimer=setTimeout(applyFilters,120);
-});
 		
 applyFilters();
 	</script>
