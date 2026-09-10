@@ -170,17 +170,18 @@
 			margin-top: 24px;
 			padding: 18px;
 			display: flex;
+			flex-direction: column;
 			justify-content: center;
 			align-items: center;
 		}
-		/* .search-wrap { position: relative; }
+		.search-wrap { position: relative; width: 100%; margin-bottom: 16px; }
 		.search-wrap input {
 			width: 100%; padding: 16px 18px 16px 52px; border-radius: 18px;
 			border: 1px solid rgba(255, 255, 255, 0.12); background: rgba(8, 17, 31, 0.34);
 			color: var(--text); outline: none; font: inherit;
 		}
 		.search-wrap input::placeholder { color: rgba(244, 248, 255, 0.48); }
-		.search-wrap svg { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); opacity: 0.7; } */
+		.search-wrap svg { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); opacity: 0.7; }
 		.chips {
 			display: flex;
 			flex-wrap: wrap;
@@ -262,6 +263,14 @@
 
 		<section class="panel control-bar" aria-label="Filters">
 			
+			<div class="search-wrap">
+				<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+					<circle cx="11" cy="11" r="8"></circle>
+					<line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+				</svg>
+				<input type="text" id="searchInput" placeholder="Search AI tools...">
+			</div>
+
 			<div class="chips" id="chips">
 				<button class="chip active" type="button" data-filter="all">All</button>
 				<button class="chip" type="button" data-filter="layout">Layout</button>
@@ -436,9 +445,16 @@
 		];
 
 		const s = document.getElementById('s');
+		const searchInput = document.getElementById('searchInput');
 		
 		const chips = [...document.querySelectorAll('.chip')];
 let activeFilter = 'all';
+let searchQuery = '';
+
+searchInput.addEventListener('input', (e) => {
+	searchQuery = e.target.value.toLowerCase();
+	applyFilters();
+});
 function sectionMarkup(category) {
 			const cards = category.items.map(([name, url, description]) => `
 				<a class="tool-card" href="${url}" target="_blank" rel="noreferrer" data-name="${name.toLowerCase()}" data-text="${(name + ' ' + description + ' ' + category.title).toLowerCase()}">
@@ -464,11 +480,24 @@ function sectionMarkup(category) {
 
 		function applyFilters() {
     document.querySelectorAll('[data-section]').forEach((section) => {
-        const visible =
-            activeFilter === 'all' ||
-            section.dataset.section === activeFilter;
+        let sectionVisible = activeFilter === 'all' || section.dataset.section === activeFilter;
+        let hasVisibleCards = false;
 
-        section.classList.toggle('hidden', !visible);
+        const cards = section.querySelectorAll('.tool-card');
+        cards.forEach((card) => {
+            const cardText = card.dataset.text || '';
+            const matchesSearch = searchQuery === '' || cardText.includes(searchQuery);
+
+            if (matchesSearch) {
+                card.classList.remove('hidden');
+                hasVisibleCards = true;
+            } else {
+                card.classList.add('hidden');
+            }
+        });
+
+        // Hide the whole section if it doesn't match the category filter OR if no cards match the search
+        section.classList.toggle('hidden', !sectionVisible || !hasVisibleCards);
     });
 }
 
